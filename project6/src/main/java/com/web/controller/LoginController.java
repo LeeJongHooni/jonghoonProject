@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,11 +35,13 @@ public class LoginController extends HttpServlet {
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		
+		int pkId = service.select_pkid(userid);
 		
 		if(service.login(dto)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("logined", true);
 			session.setAttribute("account", dto);
+			session.setAttribute("userPkId", pkId);
 			session.setAttribute("userid", dto.getUserid());
 			response.sendRedirect("/");
 		}else {

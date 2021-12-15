@@ -135,8 +135,43 @@
 				<fmt:formatNumber value="100000000" type="currency" groupingUsed="true" currencySymbol="$" /><br>
 				
 				<hr>
-				
-				<%-- <fmt:formatDate /> --%>
+    	<% java.util.Date date = new java.util.Date();
+    		pageContext.setAttribute("now", date); %>
+		    	<fmt:formatDate value="${now}" type="date" /><br>
+		    	<fmt:formatDate value="${now}" type="date" dateStyle="full" /><br>
+		    	<fmt:formatDate value="${now}" type="date" dateStyle="long" /><br>
+		    	<fmt:formatDate value="${now}" type="date" dateStyle="medium" /><br>
+		    	<fmt:formatDate value="${now}" type="date" dateStyle="short" /><br>
+		    	<fmt:formatDate value="${now}" type="date" pattern="YYYY-MM-dd EEEE(E)" /><br>
+		    	<hr>
+		    	<fmt:formatDate value="${now}" type="time" /><br>
+		    	<fmt:formatDate value="${now}" type="time" timeStyle="full" /><br>
+		    	<fmt:formatDate value="${now}" type="time" timeStyle="long" /><br>
+		    	<fmt:formatDate value="${now}" type="time" timeStyle="medium" /><br>
+		    	<fmt:formatDate value="${now}" type="time" timeStyle="short" /><br>
+		    	<fmt:formatDate value="${now}" type="time" pattern="a hh:mm:ss.SSS z" /><br>
+		    	<fmt:formatDate value="${now}" type="time" pattern="H:mm:ss.SSS Z" /><br>
+		    	<fmt:formatDate value="${now}" type="time" pattern="a hh:mm:ss.SSS Z z" timeZone="America/New_York" /><br>
+		    	<fmt:formatDate value="${now}" type="time" pattern="a hh:mm:ss.SSS Z z" timeZone="Asia/Tokyo" /><br>
+		    	<fmt:formatDate value="${now}" type="time" pattern="a hh:mm:ss.SSS Z z" timeZone="Europe/Paris" /><br>
+		    	<hr>
+		    	<fmt:formatDate value="${now}" type="both" /><br>
+		    	<fmt:formatDate value="${now}" type="both" dateStyle="full" timeStyle="full" /><br>
+		    	<fmt:formatDate value="${now}" type="both" dateStyle="long" timeStyle="long" /><br>
+		    	<fmt:formatDate value="${now}" type="both" dateStyle="medium" timeStyle="medium" /><br>
+		    	<fmt:formatDate value="${now}" type="both" dateStyle="short" timeStyle="short" /><br>
+			</div>
+			<div>
+				fn:contains(전체문자열, 일부문자열)<br>
+				fn:indexOf(전체문자열,일부문자열)<br>
+				fn:length(문자열)<br>
+				fn:replace(전체문자열,일부문자열,바꿀문자열)<br>
+				fn:toLower(문자열)<br>
+				fn:toUpper(문자열)<br>
+				fn:subString(전체문자열,시작위치,끝위치)<br>
+				fn:split(전체문자열,분리기준문자열)<br>
+				fn:trim(전체문자열,[제거할문자])<br>
+				fn:join(문자열배열,결합문자열)<br>
 			</div>
 	</p>
 </body>

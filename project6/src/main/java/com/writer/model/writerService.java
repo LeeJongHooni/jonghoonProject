@@ -78,4 +78,15 @@ public class writerService {
 		}
 		return res;
 	}
+	public boolean update(writerDTO dto) {
+		writerDAO dao = new writerDAO();
+		boolean res = dao.update(dto);
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return res;
+	}
 }

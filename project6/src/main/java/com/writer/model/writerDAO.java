@@ -19,7 +19,7 @@ public class writerDAO {
 				+ "'" + dto.getSignId() +"', "
 				+ "'" + dto.getwTitle() +"', "
 				+ "'" + dto.getwContent() +"', "
-				+ " sysdate , "
+				+ " sysdate + 9/24 , "
 				+ "0 )";
 		int res = oc.insert(query);
 		if(res == 1) {
@@ -118,6 +118,18 @@ public class writerDAO {
 			return false;
 		}
 		
+	}
+	public boolean update(writerDTO dto) {
+		
+		this.query = "UPDATE WRITER SET wtitle = '" +dto.getwTitle()+ "',wContent = '" + dto.getwContent() +"' WHERE wnum = '" + dto.getwNum() + "'";
+		
+		int res = oc.update(query);
+		
+		if(res == 1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	public void commit() {
 		oc.commit();

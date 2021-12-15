@@ -27,7 +27,7 @@ public class DetailController extends HttpServlet {
 		writerService service = new writerService();
 		List<writerDTO> details = service.select_detail(wnum);
 		
-		request.setAttribute("details", details);
+		getServletContext().setAttribute("details", details);
 		
 		if(service.viewCnt_update(wnum)){
 			

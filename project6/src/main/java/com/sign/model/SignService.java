@@ -26,6 +26,17 @@ public class SignService {
 			return false;
 		}
 	}
+	public int select_pkid(String userid){
+		SignDAO dao = new SignDAO();
+		int data = dao.select_pkid(userid);
+		if(data != 0) {
+			dao.close();
+			return data;
+		}else {
+			dao.close();
+			return data;
+		}
+	}
 	public boolean login(SignDTO dto) {
 		SignDAO dao = new SignDAO();
 		List<SignDTO> data = dao.select(dto.getUserid());

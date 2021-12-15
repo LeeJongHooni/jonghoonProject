@@ -21,7 +21,7 @@ public class SignDAO {
 				+ dto.getPassword() + "','"
 				+ dto.getEmail() + "','"
 				+ dto.getName() + "','"
-				+ dto.getBirthday() + "',sysdate)";
+				+ dto.getBirthday() + "',sysdate +9/24)";
 		int res = oc.insert(query);
 		if(res == 1) {
 			return true;
@@ -50,6 +50,24 @@ public class SignDAO {
 			e.printStackTrace();
 		}
 		return data;
+	}
+	public int select_pkid(String userid) {
+		this.query = "SELECT id FROM SIGN WHERE USERID = '" + userid + "'";
+		
+		ResultSet rs = oc.select(query);
+		int res = 0;
+		try {
+			if(rs.next()) {
+				SignDTO dto = new SignDTO();
+				dto.setPkid(rs.getInt("id"));
+				res = dto.getPkid();
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 	public void commit() {
 		oc.commit();

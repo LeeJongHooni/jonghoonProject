@@ -8,46 +8,40 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.writer.model.*;
 
 
-@WebServlet("/writer")
-public class WriterController extends HttpServlet {
+@WebServlet("/update")
+public class UpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String view = "/WEB-INF/jsp/board/writer.jsp";
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
+		
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String updateTitle = request.getParameter("title");
+		String updateContent = request.getParameter("content");
+		String wnum = request.getParameter("wnum");
 		
-		HttpSession session = request.getSession();
-		request.setCharacterEncoding("utf-8");
-		
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String userId = (String)session.getAttribute("userid");
 		writerDTO dto = new writerDTO();
 		writerService service = new writerService();
 		
-		dto.setSignId(service.select_signId(userId));
-		dto.setwTitle(title);
-		dto.setwContent(content);
+		dto.setwTitle(updateTitle);
+		dto.setwContent(updateContent);
+		dto.setwNum(Integer.parseInt(wnum));
 		
-		if(service.insert(dto)) {
+		if(service.update(dto)) {
 			response.sendRedirect("/board");
 		}else {
-			request.setAttribute("write-error", "글쓰기에 실패했습니다.");
+			request.setAttribute("update-error", "수정 실패 !!");
 			String view = "/WEB-INF/jsp/board/writer.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);
 		}
-		
 	}
 
 }
