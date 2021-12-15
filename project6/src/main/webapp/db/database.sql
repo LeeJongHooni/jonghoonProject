@@ -14,7 +14,7 @@ alter table sign modify password constraint nn_password not null;
 alter table sign modify email constraint nn_email not null;
 alter table sign modify username constraint nn_username not null;
 alter table sign modify birthday constraint nn_birthday not null;
-alter table sign modify signdate default sysdate;
+alter table sign modify signdate default sysdate ;
 create sequence sign_seq NOCACHE;
 
 select * from sign;
@@ -29,11 +29,12 @@ create table writer(
     , viewcnt number
 );
 
+
 alter table writer add constraint pk_wnum primary key(wnum);
 alter table writer add foreign key(signid) references sign(id);
 alter table writer modify wtitle constraint nn_wtitle not null;
 alter table writer modify wcontent constraint nn_wcontent not null;
-alter table writer modify wdate default sysdate;
+alter table writer modify wdate default sysdate ;
 alter table writer modify viewcnt default 0;
 
 create sequence writer_seq NOCACHE;
