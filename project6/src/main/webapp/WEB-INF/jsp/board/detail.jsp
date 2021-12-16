@@ -10,6 +10,18 @@
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="flase"></jsp:include>
 <title>Insert title here</title>
+<script type="text/javascript">
+	function delete_confirm(){
+		var frm = document.hiddenfrm;
+		if(confirm("게시글 삭제를 하시겠습니까?") == true){
+			alert("게시글 삭제 하셨습니다.");
+			return true;
+		}else{
+			alert("게시글 삭제를 취소 하셨습니다.");
+			return false;	
+		}
+	}
+</script>
 </head>
 <body>
 	<header>
@@ -39,10 +51,13 @@
 						<button><a href="${update}">수 정</a></button>
 					</td>
 					<td>	
-						<c:url var="delete" value="/detail">
+						<c:url var="delete" value="/delete">
 							<c:param name="wnum" value="${detail.getwNum()}"/>
-						</c:url>					
-						<button><a href="${delete}">삭 제</a></button>
+						</c:url>
+						<button type="submit"><a href="${delete}" onclick="return delete_confirm()" name="delete">삭 제</a></button>
+						<form method="get" name="hiddenfrm">
+							<input type="hidden" name="hiddenval" value=""/>
+						</form>				
 					</td>	
 				</c:if>				
 				</tr>

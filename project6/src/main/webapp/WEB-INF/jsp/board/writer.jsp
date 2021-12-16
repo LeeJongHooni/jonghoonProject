@@ -31,7 +31,7 @@
 			<c:when test="${param.update == null}">
 				<form action="/writer" method="post">	
 					<ul>
-						<li><input type="text" name="title" placeholder="title..." value=""></li>
+						<li><input type="text" name="title" placeholder="title..."></li>
 						<li><textarea name="content" placeholder="content..."></textarea></li>
 					</ul>
 					<div>

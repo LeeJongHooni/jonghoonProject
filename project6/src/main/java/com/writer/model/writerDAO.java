@@ -131,6 +131,17 @@ public class writerDAO {
 			return false;
 		}
 	}
+	public boolean delete(String wnum) {
+		this.query = "DELETE FROM WRITER WHERE wnum = " + wnum;
+		
+		int res = oc.delete(this.query);
+		
+		if(res == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	public void commit() {
 		oc.commit();
 	}

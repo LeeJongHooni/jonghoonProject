@@ -89,4 +89,16 @@ public class writerService {
 		dao.close();
 		return res;
 	}
+	public boolean delete(String wnum) {
+		writerDAO dao = new writerDAO();
+		
+		boolean res = dao.delete(wnum);
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return res;
+	}
 }
