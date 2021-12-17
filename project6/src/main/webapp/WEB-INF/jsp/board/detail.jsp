@@ -40,6 +40,19 @@
 					</td>			
 				</tr>
 				<tr>
+					<td>
+					<c:set var="filePath" value="${detail.getDownloadpath()}"/>
+					<c:set var="fileNameArr" value="${fn:split(filePath,'/')}"/>
+					
+					<c:forEach var="fileName" items="${fileNameArr }" varStatus="i">
+					 	<c:if test="${i.last}">
+							<a href="${detail.getDownloadpath() }" download>${fileName}</a>								 	
+					 	</c:if>
+					</c:forEach>
+					
+					</td>
+				</tr>
+				<tr>
 				<c:set var="signId" value="${detail.getSignId()}"/>
 				<c:set var="pkId" value="${sessionScope.userPkId}"/>
 				<c:if test="${signId == pkId}">
@@ -64,5 +77,6 @@
 			</c:forEach>
 		</table>
 	</div>
+
 </body>
 </html>

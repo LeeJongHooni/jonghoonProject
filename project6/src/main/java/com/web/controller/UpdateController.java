@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.writer.model.*;
 
 
@@ -23,8 +25,17 @@ public class UpdateController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String updateTitle = request.getParameter("title");
-		String updateContent = request.getParameter("content");
+		MultipartRequest multi = new MultipartRequest(
+				request
+				, request.getServletContext().getRealPath("/upload")
+				, 1024 * 1024 * 10
+				, "utf-8"
+				, new DefaultFileRenamePolicy()
+				);
+		
+		String updateTitle = multi.getParameter("title");
+		String updateContent = multi.getParameter("content");
+		String updateFile = "/upload/" + multi.getFilesystemName("download");
 		String wnum = request.getParameter("wnum");
 		
 		writerDTO dto = new writerDTO();
@@ -32,6 +43,8 @@ public class UpdateController extends HttpServlet {
 		
 		dto.setwTitle(updateTitle);
 		dto.setwContent(updateContent);
+		dto.setDownloadpath(updateFile);
+		
 		dto.setwNum(Integer.parseInt(wnum));
 		
 		if(service.update(dto)) {

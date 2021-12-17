@@ -16,11 +16,12 @@
 	</header>
 		<c:choose>
 			<c:when test="${param.update eq 'yes' }">
-				<form action="/update?wnum=${param.wnum }" method="post">
+				<form action="/update?wnum=${param.wnum }" method="post" enctype="multipart/form-data">
 					<ul>
 						<c:forEach var="detail" items="${details}">
 							<li><input type="text" name="title" placeholder="title..." value="${detail.getwTitle() }"></li>
 							<li><textarea name="content" placeholder="content...">${detail.getwContent()}</textarea></li>
+							<li><input type="file" multiple name="download"/>${detail.getDownloadpath()}</li>
 						</c:forEach>
 					</ul>
 					<div>
@@ -29,11 +30,11 @@
 				</form>				
 			</c:when>
 			<c:when test="${param.update == null}">
-				<form action="/writer" method="post">	
+				<form action="/writer" method="post" enctype="multipart/form-data">	
 					<ul>
 						<li><input type="text" name="title" placeholder="title..."></li>
 						<li><textarea name="content" placeholder="content..."></textarea></li>
-						<li><input type="file" multiple/></li>
+						<li><input type="file" multiple name="download"/></li>
 					</ul>
 					<div>
 						<button type="submit">글쓰기</button>

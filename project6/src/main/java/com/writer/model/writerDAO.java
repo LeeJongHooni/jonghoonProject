@@ -127,7 +127,7 @@ public class writerDAO {
 		this.query = "UPDATE WRITER SET wtitle = '" +dto.getwTitle()+
 					"',wContent = '" + dto.getwContent() +
 					"', downloadpath = '"+dto.getDownloadpath() +
-					" WHERE wnum = '" + dto.getwNum() + "'";
+					"' WHERE wnum = '" + dto.getwNum() + "'";
 		
 		int res = oc.update(query);
 		
