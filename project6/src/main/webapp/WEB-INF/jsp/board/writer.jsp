@@ -33,6 +33,7 @@
 					<ul>
 						<li><input type="text" name="title" placeholder="title..."></li>
 						<li><textarea name="content" placeholder="content..."></textarea></li>
+						<li><input type="file" multiple/></li>
 					</ul>
 					<div>
 						<button type="submit">글쓰기</button>

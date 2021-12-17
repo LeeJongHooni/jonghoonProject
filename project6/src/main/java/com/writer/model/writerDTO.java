@@ -7,10 +7,18 @@ public class writerDTO {
 	private int signId;
 	private String wTitle;
 	private String wContent;
+	private String downloadpath;
 	private Date wDate;
 	private int viewCnt;
 	
 	
+	
+	public String getDownloadpath() {
+		return downloadpath;
+	}
+	public void setDownloadpath(String downloadpath) {
+		this.downloadpath = downloadpath;
+	}
 	public int getwNum() {
 		return wNum;
 	}

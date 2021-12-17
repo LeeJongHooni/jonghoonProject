@@ -41,12 +41,32 @@
 				</c:forEach>		
 			</tbody>
 		</tr>
+		<%	
+			if(session.getAttribute("logined") == null){
+				session.setAttribute("logined",false);
+			}
+		%>
+		<script>
+			function logined(){
+				var loginfrm = document.logined_form;
+				if(${sessionScope.logined}){
+					loginfrm.submit();
+				}else{
+					alert('로그인 해주셔야 글쓰기 가능합니다.')
+				}
+			};
+		</script>
 		<tr>
 			<tfoot>
-				<a href="<%= request.getContextPath() + "/writer"%>"><button type="button">글쓰기</button></a>
+				<tr>
+					<td>
+						<form action="<%= request.getContextPath() + "/writer"%>" name="logined_form">
+							<button type="button" onclick="logined()">글쓰기</button>
+						</form>
+					<td>
+				</tr>		
 			</tfoot>
 		</tr>	
 	</table>
-	
 </body>
 </html>

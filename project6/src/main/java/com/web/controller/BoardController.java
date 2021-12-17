@@ -23,7 +23,7 @@ public class BoardController extends HttpServlet {
 		writerService service = new writerService();
 		
 		List<writerDTO> contents = service.selectAll();
-		
+		HttpSession session = request.getSession();
 		getServletContext().setAttribute("contents", contents);
 		
 		String view = "/WEB-INF/jsp/board/board.jsp";

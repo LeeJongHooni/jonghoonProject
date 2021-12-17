@@ -19,6 +19,7 @@ public class writerDAO {
 				+ "'" + dto.getSignId() +"', "
 				+ "'" + dto.getwTitle() +"', "
 				+ "'" + dto.getwContent() +"', "
+				+ "'" + dto.getDownloadpath() + "', "
 				+ " sysdate + 9/24 , "
 				+ "0 )";
 		int res = oc.insert(query);
@@ -41,6 +42,7 @@ public class writerDAO {
 				dto.setSignId(rs.getInt("signid"));
 				dto.setwTitle(rs.getString("wtitle"));
 				dto.setwContent(rs.getString("wcontent"));
+				dto.setDownloadpath(rs.getString("downloadpath"));
 				dto.setwDate(rs.getDate("wdate"));
 				dto.setViewCnt(rs.getInt("viewcnt"));
 				datas.add(dto);
@@ -63,6 +65,7 @@ public class writerDAO {
 				dto.setSignId(rs.getInt("signid"));
 				dto.setwTitle(rs.getString("wtitle"));
 				dto.setwContent(rs.getString("wcontent"));
+				dto.setDownloadpath(rs.getString("downloadpath"));
 				dto.setwDate(rs.getDate("wdate"));
 				dto.setViewCnt(rs.getInt("viewcnt"));
 				datas.add(dto);
@@ -121,7 +124,10 @@ public class writerDAO {
 	}
 	public boolean update(writerDTO dto) {
 		
-		this.query = "UPDATE WRITER SET wtitle = '" +dto.getwTitle()+ "',wContent = '" + dto.getwContent() +"' WHERE wnum = '" + dto.getwNum() + "'";
+		this.query = "UPDATE WRITER SET wtitle = '" +dto.getwTitle()+
+					"',wContent = '" + dto.getwContent() +
+					"', downloadpath = '"+dto.getDownloadpath() +
+					" WHERE wnum = '" + dto.getwNum() + "'";
 		
 		int res = oc.update(query);
 		

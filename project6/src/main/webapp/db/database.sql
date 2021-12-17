@@ -25,6 +25,7 @@ create table writer(
     , signid number 
     , wtitle varchar2(300)
     , wcontent varchar2(3000)
+    , downloadpath varchar2(300)
     , wdate DATE
     , viewcnt number
 );
@@ -38,6 +39,8 @@ alter table writer modify wdate default sysdate ;
 alter table writer modify viewcnt default 0;
 
 create sequence writer_seq NOCACHE;
+select * from writer;
+
 
 create table NAV_MENUS(
       ID NUMBER --식별번호   
@@ -56,3 +59,6 @@ INSERT INTO NAV_MENUS VALUES(2, '방명록', '/guest', 2);
 INSERT INTO NAV_MENUS VALUES(3, '게시판', '/board', 3);
 
 select * from nav_menus;
+
+update nav_menus set odr = 3 where id = 2;
+DELETE FROM WRITER WHERE wnum = 16;

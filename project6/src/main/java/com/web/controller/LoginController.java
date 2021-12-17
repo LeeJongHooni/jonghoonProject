@@ -31,14 +31,13 @@ public class LoginController extends HttpServlet {
 		
 		SignDTO dto = new SignDTO();
 		SignService service = new SignService();
+		HttpSession session = request.getSession();
 		
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		
 		int pkId = service.select_pkid(userid);
-		
 		if(service.login(dto)) {
-			HttpSession session = request.getSession();
 			session.setAttribute("logined", true);
 			session.setAttribute("account", dto);
 			session.setAttribute("userPkId", pkId);
