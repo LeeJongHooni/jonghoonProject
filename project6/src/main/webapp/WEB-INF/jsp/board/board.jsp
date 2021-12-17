@@ -41,18 +41,13 @@
 				</c:forEach>		
 			</tbody>
 		</tr>
-		<%	
-			if(session.getAttribute("logined") == null){
-				session.setAttribute("logined",false);
-			}
-		%>
 		<script>
 			function logined(){
 				var loginfrm = document.logined_form;
-				if(${sessionScope.logined}){
+				if(${sessionScope.logined != null}){
 					loginfrm.submit();
 				}else{
-					alert('로그인 해주셔야 글쓰기 가능합니다.')
+					alert('로그인 해주셔야 글쓰기 가능합니다.');
 				}
 			};
 		</script>
