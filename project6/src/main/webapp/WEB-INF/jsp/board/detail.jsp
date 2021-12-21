@@ -77,6 +77,38 @@
 			</c:forEach>
 		</table>
 	</div>
-
+	<c:if test="${sessionScope.logined }">
+	<c:choose>
+		<c:when test="${comment-error == 0 }">
+			<div>
+				<form action="/comment" method="post">
+					<input type="hidden" value="${pkId }" name="userPkId"/>
+					<c:forEach var="wnumPara" items="${details}">
+						<input type="hidden" value="${wnumPara.getwNum() }" name="wnumPara"/>
+					</c:forEach>
+					<textarea name="userComment"></textarea>
+					<button type="submit">댓글 달기</button>
+				</form>
+			</div>
+		</c:when>
+		<c:when test="${comment-error != 0 }">
+			<script>
+				alert(${comment-error});
+			</script>
+		</c:when>
+	</c:choose>
+	</c:if>
+	<div>
+		<c:forEach var="comment" items="${applicationScope.userComment }">
+			<hr>
+			<ul>
+				<li><h6>${applicationScope.userid } 님의 댓글</h6></li>
+				<li><p>${comment.getUsercomment() }</p></li>
+				<li><span><fmt:formatDate value="${comment.getCommentdate() }" type="both" dateStyle="long" timeStyle="long"/></span></li>
+				<li><button type="button">좋아요! [${comment.getGood_count()}]</button></li>
+				<li><button type="button">싫어요! [${comment.getHate_count()}]</button></li>
+			</ul>
+		</c:forEach>
+	</div>
 </body>
 </html>

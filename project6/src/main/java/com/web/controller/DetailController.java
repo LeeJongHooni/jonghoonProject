@@ -1,6 +1,8 @@
 package com.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.comment.model.CommentDTO;
+import com.comment.model.CommentService;
+import com.sign.model.SignService;
 import com.writer.model.*;
 
 
@@ -22,24 +27,43 @@ public class DetailController extends HttpServlet {
 		
 		String wnum = request.getParameter("wnum");
 		String viewCnt = request.getParameter("viewCnt");
-		System.out.println("wnum : " + wnum);
-		System.out.println("viewcnt : " + viewCnt);
+		String userpkid = "";
+		String userid = "";
+		
 		writerService service = new writerService();
 		List<writerDTO> details = service.select_detail(wnum);
+		CommentService cservice = new CommentService();
+		SignService sService = new SignService();
+		
+		
+		List<CommentDTO> datas = cservice.commentSelect();
 		
 		getServletContext().setAttribute("details", details);
 		
-		if(service.viewCnt_update(wnum)){
-			
+		for(writerDTO wdata: details) {
+			userpkid = String.valueOf(wdata.getSignId());
 		}
-		String view = "/WEB-INF/jsp/board/detail.jsp";
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
+		userid = sService.select_userid(userpkid);
+		
+		if(service.viewCnt_update(wnum)){
+			getServletContext().setAttribute("userComment", datas);
+			getServletContext().setAttribute("userid", userid);			
+			String view = "/WEB-INF/jsp/board/detail.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(view);
+			rd.forward(request, response);
+		}
+		
+		if(datas.size() == 0 ) {
+			request.setAttribute("comment-error", "댓글달기에 실패하셨습니다.");
+			String view = "/WEB-INF/jsp/board/detail.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(view);
+			rd.forward(request, response);
+		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 
+
+	}
 }

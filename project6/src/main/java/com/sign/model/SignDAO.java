@@ -69,6 +69,22 @@ public class SignDAO {
 		}
 		return res;
 	}
+	public String select_userid(String pkid) {
+		this.query = "SELECT userid FROM SIGN WHERE ID = '" + pkid + "'";
+		
+		ResultSet rs = oc.select(query);
+		String id = "";
+		try {
+			if(rs.next()) {
+				SignDTO dto = new SignDTO();
+				dto.setUserid(rs.getString("userid"));
+				id = dto.getUserid();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
 	public void commit() {
 		oc.commit();
 	}
