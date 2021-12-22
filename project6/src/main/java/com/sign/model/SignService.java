@@ -17,14 +17,16 @@ public class SignService {
 	}
 	public boolean isValid(String userid) {
 		SignDAO dao = new SignDAO();
-		int res = dao.select(userid).size();
-		if(res == 0) {
-			dao.close();
+		List<SignDTO> data = dao.selectSign(userid);
+		dao.close();	
+		if(data.size() == 0) {
+			System.out.println("true");
 			return true;
 		}else {
-			dao.close();
+			System.out.println("false");
 			return false;
 		}
+		
 	}
 	public int select_pkid(String userid){
 		SignDAO dao = new SignDAO();
@@ -51,12 +53,17 @@ public class SignService {
 	
 	public boolean login(SignDTO dto) {
 		SignDAO dao = new SignDAO();
-		List<SignDTO> data = dao.select(dto.getUserid());
-		if(data.size() == 1) {
-			dao.close();
+		SignDTO data = dao.selectLogin(dto);
+		dao.close();
+		if(data != null) {
+			dto.setPkid(data.getId());
+			dto.setUserid(data.getUserid());
+			dto.setPassword("");
+			dto.setEmail(data.getEmail());
+			dto.setName(data.getName());
+			dto.setBirthday(data.getBirthday());
 			return true;
 		}else {
-			dao.close();
 			return false;
 		}
 	}

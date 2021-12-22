@@ -62,3 +62,17 @@ select * from nav_menus;
 
 update nav_menus set odr = 3 where id = 2;
 DELETE FROM WRITER WHERE wnum = 16;
+
+create table usercomment(
+      comment_id NUMBER primary KEY
+    , userpkid NUMBER references sign(id)
+    , usercomment varchar2(2000) not null
+    , commentdate DATE default SYSDATE
+    , good_count NUMBER default 0
+    , hate_count NUMBER default 0
+);
+CREATE SEQUENCE COMMENT_ID_SEQ nocache;
+select * from usercomment;
+delete from usercomment where userpkid = 1;
+
+select * from ALL_CONSTRAINTS where TABLE_NAME='usercomment';

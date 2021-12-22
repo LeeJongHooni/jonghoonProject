@@ -3,42 +3,30 @@ package com.menu.model;
 import java.sql.*;
 import java.util.*;
 
-import com.db.conn.OracleConnect;
+import org.apache.ibatis.session.SqlSession;
+
+import com.db.conn.MybatisConnect;
 
 public class MenuDAO {
-	OracleConnect oc = null;
-	String query;
+	private MybatisConnect mc;
+	private SqlSession sess;
+	
 	public MenuDAO() {
-		oc = new OracleConnect();
+		this.mc = new MybatisConnect();
+		this.sess=this.mc.getSession();
 	}
 	
 	public List<MenuDTO> select(){
-		this.query = "SELECT * FROM NAV_MENUS ORDER BY ODR";
-		
-		ResultSet rs = oc.select(query);
-		List<MenuDTO> data = new ArrayList<MenuDTO>();
-		
-		try {
-			while(rs.next()) {
-				MenuDTO dto = new MenuDTO();
-				dto.setMenuId(rs.getInt("ID"));
-				dto.setMenuName(rs.getString("NAME"));
-				dto.setMenuURL(rs.getString("URL"));
-				dto.setMenuODR(rs.getInt("ODR"));
-				data.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		List<MenuDTO> data = this.sess.selectList("MainMapper.selectMenus");
 		return data;
 	}
 	public void commit() {
-		oc.commit();
+		this.mc.commit();
 	}
 	public void rollback() {
-		oc.rollback();
+		this.mc.rollback();
 	}
 	public void close() {
-		oc.close();
+		this.mc.close();
 	}
 }

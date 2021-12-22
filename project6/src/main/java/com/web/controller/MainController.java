@@ -18,10 +18,10 @@ import com.menu.model.*;
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
+	public void init() throws ServletException {
 		MenuService service = new MenuService();
 		List<MenuDTO> data = service.select();
+		System.out.println(data);
 		getServletContext().setAttribute("menus", data);		
 	}
        

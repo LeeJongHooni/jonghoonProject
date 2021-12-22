@@ -34,30 +34,31 @@ public class SignController extends HttpServlet {
 		SignDTO dto = new SignDTO();
 		SignService service = new SignService();
 		
+		
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		dto.setEmail(email);
 		dto.setName(name);
 		dto.setBirthday(Date.valueOf(bd));
-		System.out.println(userid);
-		System.out.println(password);
-		System.out.println(email);
-		System.out.println(name);
-		System.out.println(bd);
+		
+		System.out.println(dto.getUserid());
+		
 		if(service.isValid(dto.getUserid())) {
 			if(service.insert(dto)) {
 				response.sendRedirect("/");
 			}else {
-				request.setAttribute("sign-error", "회원가입 실패!");
+				request.setAttribute("insert-error", "데이터 추가 실패");
 				String view = "/WEB-INF/jsp/account/sign.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(view);
 				rd.forward(request, response);
 			}
 		}else {
-			System.out.println("오류");
+			System.out.print("회원가입 실패 !");
+			request.setAttribute("sign_error", "회원가입 실패 했습니다.");
+			String view = "/WEB-INF/jsp/account/sign.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(view);
+			rd.forward(request, response);
 		}
-		
-		
 	}
 
 }

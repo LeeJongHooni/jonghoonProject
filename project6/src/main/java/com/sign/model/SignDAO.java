@@ -3,16 +3,23 @@ package com.sign.model;
 import java.sql.*;
 import java.util.*;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.db.conn.MybatisConnect;
 import com.db.conn.OracleConnect;
 import com.sign.model.*;
 
 public class SignDAO {
 	
-	OracleConnect oc = null;
+	private OracleConnect oc;
+	private MybatisConnect mc;
+	private SqlSession sess;
 	String query;
 	
 	public SignDAO() {
 		this.oc = new OracleConnect();
+		this.mc = new MybatisConnect();
+		this.sess = this.mc.getSession();
 	}
 	
 	public boolean insert(SignDTO dto) {
@@ -29,26 +36,12 @@ public class SignDAO {
 			return false;
 		}
 	}
-	public List<SignDTO> select(String userid) {
-		this.query = "SELECT * FROM SIGN WHERE USERID = '" + userid + "'";
-		
-		ResultSet rs = oc.select(query);
-		List<SignDTO> data = new ArrayList<SignDTO>();
-		try {
-			if(rs.next()) {
-				SignDTO dto = new SignDTO();
-				dto.setPkid(rs.getInt("id"));
-				dto.setUserid(rs.getString("userid"));
-				dto.setPassword(rs.getString("password"));
-				dto.setEmail(rs.getString("email"));
-				dto.setName(rs.getString("username"));
-				dto.setBirthday(rs.getDate("birthday"));
-				data.add(dto);
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public SignDTO selectLogin(SignDTO dto) {
+		SignDTO data = this.sess.selectOne("AccountMapper.selectLogin",dto);
+		return data;
+	}
+	public List<SignDTO> selectSign(String userid) {
+		List<SignDTO> data = this.sess.selectList("AccountMapper.selectSign",userid);
 		return data;
 	}
 	public int select_pkid(String userid) {
@@ -60,7 +53,7 @@ public class SignDAO {
 			if(rs.next()) {
 				SignDTO dto = new SignDTO();
 				dto.setPkid(rs.getInt("id"));
-				res = dto.getPkid();
+				res = dto.getId();
 				
 				
 			}
@@ -87,12 +80,15 @@ public class SignDAO {
 	}
 	public void commit() {
 		oc.commit();
+		mc.commit();
 	}
 	public void rollback() {
 		oc.rollback();
+		mc.rollback();
 	}
 	public void close() {
 		oc.close();
+		mc.close();
 	}
 
 }

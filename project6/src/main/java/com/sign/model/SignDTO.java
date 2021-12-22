@@ -3,7 +3,7 @@ package com.sign.model;
 import java.sql.*;
 
 public class SignDTO {
-	private int pkid;
+	private int id;
 	private String userid;
 	private String password;
 	private String email;
@@ -11,11 +11,11 @@ public class SignDTO {
 	private Date birthday;
 	
 	
-	public int getPkid() {
-		return pkid;
+	public int getId() {
+		return id;
 	}
-	public void setPkid(int pkid) {
-		this.pkid = pkid;
+	public void setPkid(int id) {
+		this.id = id;
 	}
 	public String getUserid() {
 		return userid;
