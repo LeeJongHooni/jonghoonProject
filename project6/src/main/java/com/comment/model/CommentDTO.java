@@ -9,8 +9,17 @@ public class CommentDTO {
 	private Date commentdate;
 	private int good_count;
 	private int hate_count;
+	private String Userid;
 	
 	
+	
+	
+	public String getUserid() {
+		return Userid;
+	}
+	public void setUserid(String userid) {
+		Userid = userid;
+	}
 	public int getComment_id() {
 		return comment_id;
 	}

@@ -102,7 +102,7 @@
 		<c:forEach var="comment" items="${applicationScope.userComment }">
 			<hr>
 			<ul>
-				<li><h6>${applicationScope.userid } 님의 댓글</h6></li>
+				<li><h6>${comment.getUserid() } 님의 댓글</h6></li>
 				<li><p>${comment.getUsercomment() }</p></li>
 				<li><span><fmt:formatDate value="${comment.getCommentdate() }" type="both" dateStyle="long" timeStyle="long"/></span></li>
 				<li><button type="button">좋아요! [${comment.getGood_count()}]</button></li>

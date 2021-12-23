@@ -38,7 +38,7 @@ public class SignController extends HttpServlet {
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		dto.setEmail(email);
-		dto.setName(name);
+		dto.setUserName(name);
 		dto.setBirthday(Date.valueOf(bd));
 		
 		System.out.println(dto.getUserid());
@@ -47,13 +47,12 @@ public class SignController extends HttpServlet {
 			if(service.insert(dto)) {
 				response.sendRedirect("/");
 			}else {
-				request.setAttribute("insert-error", "데이터 추가 실패");
+				request.setAttribute("insert_error", "데이터 추가 실패");
 				String view = "/WEB-INF/jsp/account/sign.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(view);
 				rd.forward(request, response);
 			}
 		}else {
-			System.out.print("회원가입 실패 !");
 			request.setAttribute("sign_error", "회원가입 실패 했습니다.");
 			String view = "/WEB-INF/jsp/account/sign.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);

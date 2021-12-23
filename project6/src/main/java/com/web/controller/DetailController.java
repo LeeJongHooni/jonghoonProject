@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.comment.model.CommentDTO;
 import com.comment.model.CommentService;
+import com.sign.model.SignDTO;
 import com.sign.model.SignService;
 import com.writer.model.*;
 
@@ -27,8 +28,8 @@ public class DetailController extends HttpServlet {
 		
 		String wnum = request.getParameter("wnum");
 		String viewCnt = request.getParameter("viewCnt");
-		String userpkid = "";
-		String userid = "";
+		int userpkid = 0;
+		List<SignDTO> userid = null;
 		
 		writerService service = new writerService();
 		List<writerDTO> details = service.select_detail(wnum);
@@ -37,17 +38,15 @@ public class DetailController extends HttpServlet {
 		
 		
 		List<CommentDTO> datas = cservice.commentSelect();
-		
+		userid = cservice.commentUserid();
 		getServletContext().setAttribute("details", details);
 		
 		for(writerDTO wdata: details) {
-			userpkid = String.valueOf(wdata.getSignId());
-		}
-		userid = sService.select_userid(userpkid);
-		
+			userpkid = wdata.getSignId();
+		};
 		if(service.viewCnt_update(wnum)){
 			getServletContext().setAttribute("userComment", datas);
-			getServletContext().setAttribute("userid", userid);			
+			getServletContext().setAttribute("userCommentId", userid);
 			String view = "/WEB-INF/jsp/board/detail.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);

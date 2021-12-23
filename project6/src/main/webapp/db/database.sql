@@ -18,6 +18,7 @@ alter table sign modify signdate default sysdate ;
 create sequence sign_seq NOCACHE;
 
 select * from sign;
+
 SELECT id FROM SIGN WHERE userid = 'aaaa';
 
 create table writer(

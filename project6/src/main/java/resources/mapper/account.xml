@@ -9,4 +9,23 @@
   <select id="selectSign" parameterType="string" resultType="com.sign.model.SignDTO">
   	SELECT * FROM SIGN WHERE USERID = #{userid}
   </select>
+  <insert id="insertSign" parameterType="com.sign.model.SignDTO">
+  	INSERT INTO SIGN VALUES(SIGN_SEQ.NEXTVAL,
+				#{userid},
+				#{password},
+				#{email},
+				#{username},
+				#{birthday},
+				sysdate +9/24)
+  </insert>
+  <select id="selectPkid" parameterType="string" resultType="com.sign.model.SignDTO">
+  	SELECT id
+  	  FROM SIGN 
+  	 WHERE USERID = #{userid}
+  </select>
+    <select id="selectUserid" parameterType="int" resultType="com.sign.model.SignDTO">
+		SELECT userid 
+		  FROM SIGN
+		 WHERE ID = #{id}
+  </select>
 </mapper>

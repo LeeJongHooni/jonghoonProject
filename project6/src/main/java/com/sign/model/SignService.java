@@ -28,10 +28,10 @@ public class SignService {
 		}
 		
 	}
-	public int select_pkid(String userid){
+	public SignDTO select_pkid(String userid){
 		SignDAO dao = new SignDAO();
-		int data = dao.select_pkid(userid);
-		if(data != 0) {
+		SignDTO data = dao.select_pkid(userid);
+		if(data.getId() != 0) {
 			dao.close();
 			return data;
 		}else {
@@ -39,10 +39,10 @@ public class SignService {
 			return data;
 		}
 	}
-	public String select_userid(String pkid){
+	public List<SignDTO> select_userid(int pkid){
 		SignDAO dao = new SignDAO();
-		String data = dao.select_userid(pkid);
-		if(data != null) {
+		List<SignDTO> data = dao.select_userid(pkid);
+		if(data.size() != 0) {
 			dao.close();
 			return data;
 		}else {
@@ -56,11 +56,11 @@ public class SignService {
 		SignDTO data = dao.selectLogin(dto);
 		dao.close();
 		if(data != null) {
-			dto.setPkid(data.getId());
+			dto.setId(data.getId());
 			dto.setUserid(data.getUserid());
 			dto.setPassword("");
 			dto.setEmail(data.getEmail());
-			dto.setName(data.getName());
+			dto.setUserName(data.getUserName());
 			dto.setBirthday(data.getBirthday());
 			return true;
 		}else {

@@ -21,7 +21,7 @@
 	<p>
 		<div>
 			<c:if test="${logined}">
-				<h1>${sessionScope.account.getUserid() } 님 환영합니다.</h1>
+				<h1>${sessionScope.account.getUserName() } 님 환영합니다.</h1>
 			</c:if>
 			<c:set var="x" value="hello"/>
 			<c:set var="p1" value="hello page scope" scope="page"/>

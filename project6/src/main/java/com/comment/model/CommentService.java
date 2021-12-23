@@ -2,6 +2,8 @@ package com.comment.model;
 
 import java.util.List;
 
+import com.sign.model.SignDTO;
+
 public class CommentService {
 	
 	public boolean commentInsert(CommentDTO dto) {
@@ -20,6 +22,20 @@ public class CommentService {
 	public List<CommentDTO> commentSelect(){
 		CommentDAO dao = new CommentDAO();
 		List<CommentDTO> datas = dao.commentSelect();
+		
+		if(datas.size() != 0 ) {
+			dao.close();
+			return datas;
+		}else {
+			dao.close();
+			System.out.println("commentselect fail");
+			return datas;
+		}
+	}
+	
+	public List<SignDTO> commentUserid(){
+		CommentDAO dao = new CommentDAO();
+		List<SignDTO> datas = dao.commentUserid();
 		
 		if(datas.size() != 0 ) {
 			dao.close();

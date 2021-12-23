@@ -7,14 +7,14 @@ public class SignDTO {
 	private String userid;
 	private String password;
 	private String email;
-	private String name;
+	private String username;
 	private Date birthday;
 	
 	
 	public int getId() {
 		return id;
 	}
-	public void setPkid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getUserid() {
@@ -35,11 +35,11 @@ public class SignDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String name) {
+		this.username = name;
 	}
 	public Date getBirthday() {
 		return birthday;

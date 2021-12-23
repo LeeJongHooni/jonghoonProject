@@ -18,7 +18,7 @@
 		<form action="/login" method="post">
 			<input type="text" placeholder="id..." name="userid">
 			<hr>
-			<input type="text" placeholder="password..." name="user-password">	
+			<input type="password" placeholder="password..." name="user-password">	
 			<hr>
 			<button type="submit">login..</button>
 		</form>

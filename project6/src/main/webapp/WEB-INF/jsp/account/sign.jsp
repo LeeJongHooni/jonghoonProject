@@ -9,15 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-	<script>
-		function sign_alert(){
-			if(${sign-error != 0}){
-				alert('회원가입에 실패 하셨습니다.');
-			}else{
-				alert('회원가입에 성공 하셨습니다.');
-			}
-		}
-	</script>
 <body>
 
 	<form action="/sign" method="post">
@@ -39,27 +30,15 @@
 			<hr>
 		</div>
 		<div>
-			<button type="submit" onclick="sign_alert()">가 입 하 기</button>
+			<button type="submit">가 입 하 기</button>
 		</div>
 	</form>
 	
-		<div>
-		
-			<h6>${sign_error }</h6>
-		
-		<c:set var="x" value="hello"/>
-		<c:set var="p1" value="hello page scope" scope="page"/>
-		<c:set var="r1" value="hello Request Scope" scope="request"/>
-		<c:set var="s1" value="hello Session Scope" scope="session"/>
-		<c:set var="a1" value="hello Application Scope" scope="application"/>
-		
-		${x}
-		Page : ${p1}<br>
-		Request : ${r1}<br>
-		Session : ${SessionScope.s1}<br>
-		Application : ${applicationScope.a1}<br>
+	<div>
+		<c:if test="${sign_error != null}">
+			<h5>${sign_error}</h5>
+		</c:if>
 	</div>
 	
 </body>
-<
 </html>

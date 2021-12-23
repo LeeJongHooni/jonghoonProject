@@ -36,12 +36,12 @@ public class LoginController extends HttpServlet {
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		
-		int pkId = service.select_pkid(userid);
+		SignDTO pkId = service.select_pkid(userid);
 		if(service.login(dto)) {
 			session.setAttribute("logined", true);
 			session.setAttribute("account", dto);
-			session.setAttribute("userPkId", pkId);
-			session.setAttribute("userid", dto.getUserid());
+			session.setAttribute("userPkId", pkId.getId());
+			session.setAttribute("loginUserid", dto.getUserid());
 			response.sendRedirect("/");
 		}else {
 			request.setAttribute("login-error", "로그인을 하지 않았습니다.");
