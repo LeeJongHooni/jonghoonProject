@@ -14,7 +14,13 @@
 	<form action="/sign" method="post">
 		<div>
 			<label for="userid">아이디</label>
-			<input type="text" name="userid" placeholder="userId ..">
+			<input type="text" name="userid" placeholder="userId .." readonly>
+			<button type="button" onclick="newScreen_sameId()">중복확인</button>
+			<script type="text/javascript">
+				function newScreen_sameId(){
+					window.open("/sameid","","width=300,height=500");
+				}
+			</script>
 			<hr>
 			<label for="password">비밀번호</label>
 			<input type="password" name="password" placeholder="password..">

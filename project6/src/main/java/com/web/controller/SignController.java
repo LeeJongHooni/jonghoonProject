@@ -43,17 +43,11 @@ public class SignController extends HttpServlet {
 		
 		System.out.println(dto.getUserid());
 		
-		if(service.isValid(dto.getUserid())) {
-			if(service.insert(dto)) {
-				response.sendRedirect("/");
-			}else {
-				request.setAttribute("insert_error", "데이터 추가 실패");
-				String view = "/WEB-INF/jsp/account/sign.jsp";
-				RequestDispatcher rd = request.getRequestDispatcher(view);
-				rd.forward(request, response);
-			}
+		
+		if(service.insert(dto)) {
+			response.sendRedirect("/");
 		}else {
-			request.setAttribute("sign_error", "회원가입 실패 했습니다.");
+			request.setAttribute("insert_error", "데이터 추가 실패");
 			String view = "/WEB-INF/jsp/account/sign.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.menu.model.*;
 
 
-@WebServlet("/")
+@WebServlet("")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
