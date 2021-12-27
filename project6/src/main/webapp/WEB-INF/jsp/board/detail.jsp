@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="flase"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="false"></jsp:include>
 <title>Insert title here</title>
 <script type="text/javascript">
 	function delete_confirm(){
@@ -25,7 +25,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="flase"></jsp:include>
+		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="false"></jsp:include>
 	</header>
 	<div>
 		<table>

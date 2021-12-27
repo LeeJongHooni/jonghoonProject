@@ -6,14 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="/js/board.js"></script>
-<jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="flase"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="false"></jsp:include>
 <meta charset="UTF-8">
 <title>게시판</title>
 </head>
 <body>
 	<header>
-		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="flase"></jsp:include>
+		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="false"></jsp:include>
 	</header>
 	<table>
 		<tr>
@@ -33,15 +32,12 @@
 					</c:url>
 					<tr>
 						<td>${content.getwNum()}</td>
-						<td><a href="${detail_url}">${content.getwTitle() }</a></td>
-						<td><a href="${detail_url}">${content.getwContent() }</a></td>
+						<td><a href="${detail_url}" onclick="detail_logined();" name="detail_link">${content.getwTitle() }</a></td>
+						<td><a href="${detail_url}" onclick="detail_logined();" name="detail_link">${content.getwContent() }</a></td>
 						<td>${content.getwDate() }</td>
 						<td>${content.getViewCnt() }</td>
 					<tr>
-				</c:forEach>		
-			</tbody>
-		</tr>
-		<script>
+		<script type="text/javascript">
 			function logined(){
 				var loginfrm = document.logined_form;
 				if(${sessionScope.logined != null}){
@@ -50,7 +46,15 @@
 					alert('로그인 해주셔야 글쓰기 가능합니다.');
 				}
 			};
+			function detail_logined(){
+				if(${sessionScope.logined == null}){	
+					alert('로그인 후 사용 가능 합니다, 로그인 페이지로 이동합니다.');
+				}
+			};
 		</script>
+				</c:forEach>		
+			</tbody>
+		</tr>
 		<tr>
 			<tfoot>
 				<tr>

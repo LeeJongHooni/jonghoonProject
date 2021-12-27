@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebFilter({"/board/*","/logout","/info"})
+@WebFilter({"/writer","/detail","/logout","/info"})
 public class LoginFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -32,6 +32,8 @@ public class LoginFilter implements Filter {
 			resp.sendRedirect(req.getContextPath() + "/login");
 		
 			}	
+		}else {
+			resp.sendRedirect(req.getContextPath() + "/login");
 		}
 	}
 
