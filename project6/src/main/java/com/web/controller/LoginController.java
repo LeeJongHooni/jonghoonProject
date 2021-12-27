@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import com.sign.model.*;
 
 
@@ -27,28 +29,30 @@ public class LoginController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userid = request.getParameter("userid");
-		String password = request.getParameter("user-password");
+		String password = request.getParameter("user_password");
 		
 		SignDTO dto = new SignDTO();
 		SignService service = new SignService();
-		HttpSession session = request.getSession();
+		JSONObject json = new JSONObject();
+		
+
 		
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		
 		SignDTO pkId = service.select_pkid(userid);
 		if(service.login(dto)) {
+			HttpSession session = request.getSession();
 			session.setAttribute("logined", true);
 			session.setAttribute("account", dto);
 			session.setAttribute("userPkId", pkId.getId());
 			session.setAttribute("loginUserid", dto.getUserid());
-			response.sendRedirect("/");
+			json.put("state","success");
 		}else {
-			request.setAttribute("login-error", "로그인을 하지 않았습니다.");
-			String view = "/WEB-INF/jsp/account/login.jsp";
-			RequestDispatcher rd = request.getRequestDispatcher(view);
-			rd.forward(request, response);
+			json.put("state", "fail");
 		}
+		response.getWriter().print(json.toJSONString());
+		response.getWriter().flush();
 		
 				
 	}
