@@ -62,6 +62,7 @@ public class SignService {
 			dto.setEmail(data.getEmail());
 			dto.setUserName(data.getUserName());
 			dto.setBirthday(data.getBirthday());
+			dto.setSignDate(data.getSignDate());
 			return true;
 		}else {
 			return false;

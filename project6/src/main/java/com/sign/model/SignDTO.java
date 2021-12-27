@@ -9,8 +9,17 @@ public class SignDTO {
 	private String email;
 	private String username;
 	private Date birthday;
+	private Date signDate;
 	
 	
+	
+	
+	public Date getSignDate() {
+		return signDate;
+	}
+	public void setSignDate(Date signDate) {
+		this.signDate = signDate;
+	}
 	public int getId() {
 		return id;
 	}
