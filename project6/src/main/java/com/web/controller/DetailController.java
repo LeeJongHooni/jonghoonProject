@@ -45,6 +45,7 @@ public class DetailController extends HttpServlet {
 			userpkid = wdata.getSignId();
 		};
 		if(service.viewCnt_update(wnum)){
+			request.setAttribute("detail_num", Integer.parseInt(wnum));
 			getServletContext().setAttribute("userComment", datas);
 			getServletContext().setAttribute("userCommentId", userid);
 			String view = "/WEB-INF/jsp/board/detail.jsp";

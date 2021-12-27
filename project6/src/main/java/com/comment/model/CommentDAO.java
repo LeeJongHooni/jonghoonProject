@@ -17,7 +17,7 @@ public class CommentDAO {
 	
 	public boolean commentInsert(CommentDTO dto) {
 		this.query = "INSERT INTO USERCOMMENT"
-					+ " VALUES(COMMENT_ID_SEQ.NEXTVAL,'"
+					+ " VALUES('"+ dto.getComment_id()+"', '"
 					+ dto.getUserpkid() + "', '"
 					+ dto.getUsercomment() + "', "
 					+ "SYSDATE + 9/24 , 0, 0)";

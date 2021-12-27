@@ -42,7 +42,7 @@ public class WriterController extends HttpServlet {
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		String downloadPath = "/upload/" + multi.getFilesystemName("download");
-		String userId = (String)session.getAttribute("userid");
+		String userId = (String)session.getAttribute("loginUserid");
 		writerDTO dto = new writerDTO();
 		writerService service = new writerService();
 		
@@ -55,6 +55,7 @@ public class WriterController extends HttpServlet {
 		if(service.insert(dto)) {
 			response.sendRedirect("/board");
 		}else {
+			
 			request.setAttribute("write-error", "글쓰기에 실패했습니다.");
 			String view = "/WEB-INF/jsp/board/writer.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(view);

@@ -41,14 +41,24 @@
 				</tr>
 				<tr>
 					<td>
-					<c:set var="filePath" value="${detail.getDownloadpath()}"/>
-					<c:set var="fileNameArr" value="${fn:split(filePath,'/')}"/>
-					
-					<c:forEach var="fileName" items="${fileNameArr }" varStatus="i">
-					 	<c:if test="${i.last}">
-							<a href="${detail.getDownloadpath() }" download>${fileName}</a>								 	
-					 	</c:if>
-					</c:forEach>
+						<c:set var="filePath" value="${detail.getDownloadpath()}"/>
+						<c:set var="fileNameArr" value="${fn:split(filePath,'/')}"/>
+						
+						<c:forEach var="fileName" items="${fileNameArr}" varStatus="i">
+						 	<c:if test="${i.last }">
+						 	<c:choose>
+						 	<c:when test="${fn:contains(fileName,'.jpg') || fn:contains(fileName,'.JPG')
+						 		 || fn:contains(fileName,'.gif') || fn:contains(fileName,'.GIF')
+						 		 || fn:contains(fileName,'.png') || fn:contains(fileName,'.PNG')
+						 		 || fn:contains(fileName,'.JPEG') || fn:contains(fileName,'.jpeg')}"> 
+									<img src="${detail.getDownloadpath() }" width="150" height="150" />								 	
+						 	</c:when>
+						 	<c:otherwise>
+								<a href="${detail.getDownloadpath() }" download>${fileName}</a>
+						 	</c:otherwise>
+						 	</c:choose>
+							</c:if>								 	
+						</c:forEach>
 					
 					</td>
 				</tr>
@@ -100,6 +110,7 @@
 	</c:if>
 	<div>
 		<c:forEach var="comment" items="${applicationScope.userComment }">
+		<c:if test="${comment.getComment_id() == detail_num}">
 			<hr>
 			<ul>
 				<li><h6>${comment.getUserid() } 님의 댓글</h6></li>
@@ -108,6 +119,7 @@
 				<li><button type="button">좋아요! [${comment.getGood_count()}]</button></li>
 				<li><button type="button">싫어요! [${comment.getHate_count()}]</button></li>
 			</ul>
+			</c:if>
 		</c:forEach>
 	</div>
 </body>
