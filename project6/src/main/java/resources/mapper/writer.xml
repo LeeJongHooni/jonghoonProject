@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WriterMapper">
+  	<select id="SelectPhoto" parameterType="com.writer.model.writerDTO" resultType="com.writer.model.writerDTO">
+  	SELECT * FROM WRITER
+  		 WHERE DOWNLOADPATH
+  		  LIKE '%PNG' OR DOWNLOADPATH  LIKE '%png'
+                      or DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
+                      or DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
+                      or DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'
+  	</select>
+</mapper>

@@ -16,9 +16,12 @@
 	</header>
 	<table>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
+		<c:forEach var="photo" items="${photos}">
+			<c:url var="detail_link" value="/detail">
+				<c:param name="wnum" value="${photo.getwNum()}"/>
+			</c:url>
+			<td><a href="${detail_link }"><img src="${photo.getDownloadpath()}" width="360" height="500"/></a></td>
+		</c:forEach>
 		</tr>
 	</table>
 </body>

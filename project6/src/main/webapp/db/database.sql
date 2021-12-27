@@ -40,7 +40,12 @@ alter table writer modify wdate default sysdate ;
 alter table writer modify viewcnt default 0;
 
 create sequence writer_seq NOCACHE;
-select * from writer;
+select * from writer where downloadpath like '%.png';
+		SELECT * FROM WRITER
+  		 WHERE DOWNLOADPATH LIKE '%PNG' OR DOWNLOADPATH  LIKE '%png'
+                           AND DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
+                           AND DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
+                           AND DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'; 
 
 
 create table NAV_MENUS(
@@ -65,7 +70,7 @@ update nav_menus set odr = 3 where id = 2;
 DELETE FROM WRITER WHERE wnum = 16;
 
 create table usercomment(
-      comment_id NUMBER primary KEY
+      comment_id NUMBER REFERENCES writer(wnum)
     , userpkid NUMBER references sign(id)
     , usercomment varchar2(2000) not null
     , commentdate DATE default SYSDATE
@@ -74,6 +79,6 @@ create table usercomment(
 );
 CREATE SEQUENCE COMMENT_ID_SEQ nocache;
 select * from usercomment;
-delete from usercomment where userpkid = 1;
+drop table usercomment;
 
 select * from ALL_CONSTRAINTS where TABLE_NAME='usercomment';

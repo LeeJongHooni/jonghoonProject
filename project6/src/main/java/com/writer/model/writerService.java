@@ -101,4 +101,14 @@ public class writerService {
 		dao.close();
 		return res;
 	}
+	public List<writerDTO> photoComment(){
+		writerDAO dao = new writerDAO();
+		List<writerDTO> datas = dao.photoComment();
+		dao.close();
+		if(datas.size() != 0) {
+			return datas;
+		}else {
+			return dao.photoComment();
+		}
+	}
 }

@@ -20,5 +20,6 @@
   <mappers>
     <mapper resource="resources/mapper/account.xml"/>
     <mapper resource="resources/mapper/main.xml"/>
+    <mapper resource="resources/mapper/writer.xml"/>
   </mappers>
 </configuration>

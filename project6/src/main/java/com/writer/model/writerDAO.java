@@ -3,15 +3,21 @@ package com.writer.model;
 import java.sql.*;
 import java.util.*;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.db.conn.MybatisConnect;
 import com.db.conn.OracleConnect;
 
 public class writerDAO {
-	
-	OracleConnect oc = null;
-	String query;
+	private MybatisConnect mc;
+	private OracleConnect oc;
+	private String query;
+	private SqlSession sess;
 	
 	public writerDAO() {
 		this.oc = new OracleConnect();
+		this.mc = new MybatisConnect();
+		this.sess = this.mc.getSession();
 	}
 	
 	public boolean insert(writerDTO dto) {
@@ -147,6 +153,10 @@ public class writerDAO {
 		}else {
 			return false;
 		}
+	}
+	public List<writerDTO> photoComment(){
+		List<writerDTO> datas = this.sess.selectList("WriterMapper.SelectPhoto");
+		return datas;
 	}
 	public void commit() {
 		oc.commit();
