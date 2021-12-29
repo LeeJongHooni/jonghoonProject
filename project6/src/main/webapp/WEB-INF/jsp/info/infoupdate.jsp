@@ -18,27 +18,20 @@
 		createFile.setAttribute("name","profile_upload");
 		myPhoto.after(createFile);
 	}
-	function update_success(f){
-		var createFile = document.createElement("input");
-		if(createFile.value != null){
-			$.ajax({
-				url: "/info",
-				type: "post",
-				data:{
-					profile_photo: f.profile_upload.value
-				},
-				dateType : "json",
-				success: function(data){
-					document.getElementsByName("profile_photo")[0].src = data.profile_photo
-				}
-			});
+	function update_error(){
+		var dataBtn = document.getElementsByName("submitData")[0];
+		if(${update_error != null}){
+			alert(${update_error});
+		}else{
+			opener.location.reload();
+			dataBtn.submit();
+			window.close();
 		}
 	}
-	
 </script>
 </head>
 <body>
-	<form action="/info" method="post">
+	<form action="/infoupdate" method="post" enctype="multipart/form-data">
 		<div>
 			<table>
 				<tr>
@@ -49,22 +42,22 @@
 				</tr>
 				<tr>
 					<label for="info_username">성함</label>
-					<input type="text" value="${sessionScope.account.getUserName() }" name="info_username" readonly/>
+					<input type="text" value="${sessionScope.account.getUserName() }" name="info_username"/>
 				</tr>
 				<tr>
 					<label for="info_email">이메일</label>
-					<input type="text" value="${sessionScope.account.getEmail() }" name="info_email" readonly/>
+					<input type="text" value="${sessionScope.account.getEmail() }" name="info_email"/>
 				</tr>
 				<tr>
 				<label for=info_birthday">생일</label>
-					<input type="text" value="${sessionScope.account.getBirthday() }" name="info_birthday" readonly/>
+					<input type="text" value="${sessionScope.account.getBirthday() }" name="info_birthday"/>
 				</tr>
 				<tr>
 					<label for="info_signDate">가입날짜</label>
 					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
 				</tr>
 				<tr>
-					<button type="button" onclick="update_success(this.form);">등록</button>
+					<button type="submit" onclick="update_error();" name="submitData">등록</button>
 				</tr>
 			</table>
 		</div>

@@ -68,4 +68,16 @@ public class SignService {
 			return false;
 		}
 	}
+	public boolean updateProfile(SignDTO dto) {
+		SignDAO dao = new SignDAO();
+		boolean res = dao.updateProfile(dto);
+		System.out.println("updateProfile serv : " + res);
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return res;
+	}
 }

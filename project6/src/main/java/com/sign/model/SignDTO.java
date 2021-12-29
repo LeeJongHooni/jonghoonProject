@@ -10,10 +10,28 @@ public class SignDTO {
 	private String username;
 	private Date birthday;
 	private Date signDate;
+	private String profilephotopath;
+	
+	public SignDTO() {}
+	
+	public SignDTO(int id, String username, String email, Date birthday, String profilephotopath) {
+		this.username = username;
+		this.email = email;
+		this.birthday = birthday;
+		this.profilephotopath = profilephotopath;
+	}
 	
 	
-	
-	
+	public String getProfilephotopath() {
+		return profilephotopath;
+	}
+
+
+	public void setProfilephotopath(String profilephotopath) {
+		this.profilephotopath = profilephotopath;
+	}
+
+
 	public Date getSignDate() {
 		return signDate;
 	}

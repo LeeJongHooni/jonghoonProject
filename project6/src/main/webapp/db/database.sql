@@ -15,6 +15,7 @@ alter table sign modify email constraint nn_email not null;
 alter table sign modify username constraint nn_username not null;
 alter table sign modify birthday constraint nn_birthday not null;
 alter table sign modify signdate default sysdate ;
+alter table sign add profilephotopath varchar2(200);
 create sequence sign_seq NOCACHE;
 
 select * from sign;
@@ -43,9 +44,9 @@ create sequence writer_seq NOCACHE;
 select * from writer where downloadpath like '%.png';
 		SELECT * FROM WRITER
   		 WHERE DOWNLOADPATH LIKE '%PNG' OR DOWNLOADPATH  LIKE '%png'
-                           AND DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
-                           AND DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
-                           AND DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'; 
+                           or DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
+                           or DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
+                           or DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'; 
 
 
 create table NAV_MENUS(

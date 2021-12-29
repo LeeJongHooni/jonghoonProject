@@ -47,6 +47,15 @@ public class SignDAO {
 
 		return data;
 	}
+	public boolean updateProfile(SignDTO dto) {
+		int res = this.sess.update("AccountMapper.updateProfile", dto);
+		System.out.println("updateProfile dao : " + res);
+		if(res == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	public void commit() {
 		mc.commit();
 	}

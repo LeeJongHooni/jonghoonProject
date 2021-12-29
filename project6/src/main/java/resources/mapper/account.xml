@@ -28,4 +28,12 @@
 		  FROM SIGN
 		 WHERE ID = #{id}
   </select>
+  <update id="updateProfile" parameterType="com.sign.model.SignDTO">
+  	UPDATE SIGN
+  	   SET USERNAME = #{username},
+  	   	   EMAIL = #{email},
+  	   	   BIRTHDAY = #{birthday},
+  	   	   PROFILEPHOTOPATH = #{profilephotopath}
+  	 WHERE id = #{id}
+  </update>
 </mapper>
