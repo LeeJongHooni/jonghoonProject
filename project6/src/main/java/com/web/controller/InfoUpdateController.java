@@ -45,12 +45,19 @@ public class InfoUpdateController extends HttpServlet {
 		String userEmail = multi.getParameter("info_email");
 		Date userBirthday = Date.valueOf(multi.getParameter("info_birthday"));
 		
+		System.out.println(id);
+		System.out.println(myPhoto);
+		System.out.println(userName);
+		System.out.println(userEmail);
+		System.out.println(userBirthday);
+		
 		SignDTO sdto = new SignDTO(id,userName,userEmail,userBirthday,myPhoto);
 		SignService sService = new SignService();
 		
 		
 		if(sService.updateProfile(sdto)) {
 			System.out.println("----수정완료!!----");
+			session.setAttribute("updateProfile",sdto);
 			response.sendRedirect("/info");
 		}else {
 			System.out.println("----수정실패ㅜㅜ----");

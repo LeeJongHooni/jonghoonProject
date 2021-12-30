@@ -19,13 +19,15 @@
 		myPhoto.after(createFile);
 	}
 	function update_error(){
-		var dataBtn = document.getElementsByName("submitData")[0];
+		var input = document.querySelectorAll("input");
+		var openerInput = opener.document.querySelectorAll("input");
+		var inputLength = document.querySelectorAll("input").length;
 		if(${update_error != null}){
 			alert(${update_error});
 		}else{
-			opener.location.reload();
-			dataBtn.submit();
+			opener.location.href="/info";
 			window.close();
+			document.getElementsbyTagName("button")[1].submit;
 		}
 	}
 </script>
@@ -33,10 +35,12 @@
 <body>
 	<form action="/infoupdate" method="post" enctype="multipart/form-data">
 		<div>
+		<c:choose>
+			<c:when test="${sessionScope.updateProfile == null }">
 			<table>
 				<tr>
 					<div>
-						<img src="" width="80" height="80" name="profile_photo"/>
+						<img src="${sessionScope.account.getProfilephotopath() }" width="80" height="80" name="profile_photo"/>
 						<button type="button" onclick="profile_update();">사진등록</button>
 					</div>
 				</tr>
@@ -57,9 +61,40 @@
 					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
 				</tr>
 				<tr>
-					<button type="submit" onclick="update_error();" name="submitData">등록</button>
+					<button type="submit" onclick="update_error();">등록</button>
 				</tr>
 			</table>
+			</c:when>
+			<c:when test="${sessionScope.updateProfile != null }">
+			<table>
+				<tr>
+					<div>
+						<img src="${sessionScope.updateProfile.getProfilephotopath() }" width="80" height="80" name="myphoto"/>
+						<button type="button" onclick="profile_update();">사진등록</button>
+					</div>
+				</tr>
+				<tr>
+					<label for="info_username">성함</label>
+					<input type="text" value="${sessionScope.updateProfile.getUserName() }" name="info_username"/>
+				</tr>
+				<tr>
+					<label for="info_email">이메일</label>
+					<input type="text" value="${sessionScope.updateProfile.getEmail() }" name="info_email"/>
+				</tr>
+				<tr>
+				<label for=info_birthday">생일</label>
+					<input type="text" value="${sessionScope.updateProfile.getBirthday() }" name="info_birthday"/>
+				</tr>
+				<tr>
+					<label for="info_signDate">가입날짜</label>
+					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
+				</tr>
+				<tr>
+					<button type="submit" onclick="update_error();">등록</button>
+				</tr>
+			</table>
+			</c:when>
+		</c:choose>
 		</div>
 	</form>
 </body>

@@ -15,6 +15,7 @@ public class SignDTO {
 	public SignDTO() {}
 	
 	public SignDTO(int id, String username, String email, Date birthday, String profilephotopath) {
+		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.birthday = birthday;

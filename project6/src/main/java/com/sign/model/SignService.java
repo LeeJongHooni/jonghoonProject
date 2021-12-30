@@ -63,6 +63,7 @@ public class SignService {
 			dto.setUserName(data.getUserName());
 			dto.setBirthday(data.getBirthday());
 			dto.setSignDate(data.getSignDate());
+			dto.setProfilephotopath(data.getProfilephotopath());
 			return true;
 		}else {
 			return false;
