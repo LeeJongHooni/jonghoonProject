@@ -2,6 +2,7 @@ package com.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -58,7 +59,13 @@ public class InfoUpdateController extends HttpServlet {
 		if(sService.updateProfile(sdto)) {
 			System.out.println("----수정완료!!----");
 			session.setAttribute("updateProfile",sdto);
-			response.sendRedirect("/info");
+			String str = "";
+			PrintWriter out = response.getWriter();
+			str += "<script languege='javascript'>";
+			str += "opener.window.location.reload();";
+			str += "self.close();";
+			str += "</script>";
+			out.print(str);
 		}else {
 			System.out.println("----수정실패ㅜㅜ----");
 			request.setAttribute("updateProfile_error", "개인정보 수정에 실패하셨습니다.");

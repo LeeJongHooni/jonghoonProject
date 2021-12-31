@@ -70,7 +70,7 @@
 				</tr>
 				<tr>
 					<label for="info_signDate">가입날짜</label>
-					<input type="text" value="${sessionScope.updateProfile.getSignDate() }" name="info_signDate" readonly/>
+					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
 				</tr>
 			</table>
 			</c:when>

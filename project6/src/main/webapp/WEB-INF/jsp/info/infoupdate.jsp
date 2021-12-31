@@ -18,18 +18,6 @@
 		createFile.setAttribute("name","profile_upload");
 		myPhoto.after(createFile);
 	}
-	function update_error(){
-		var input = document.querySelectorAll("input");
-		var openerInput = opener.document.querySelectorAll("input");
-		var inputLength = document.querySelectorAll("input").length;
-		if(${update_error != null}){
-			alert(${update_error});
-		}else{
-			opener.location.href="/info";
-			window.close();
-			document.getElementsbyTagName("button")[1].submit;
-		}
-	}
 </script>
 </head>
 <body>
@@ -61,7 +49,7 @@
 					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
 				</tr>
 				<tr>
-					<button type="submit" onclick="update_error();">등록</button>
+					<button type="submit" onsubmit="window.close();">등록</button>
 				</tr>
 			</table>
 			</c:when>
@@ -69,7 +57,7 @@
 			<table>
 				<tr>
 					<div>
-						<img src="${sessionScope.updateProfile.getProfilephotopath() }" width="80" height="80" name="myphoto"/>
+						<img src="${sessionScope.updateProfile.getProfilephotopath() }" width="80" height="80" name="profile_photo"/>
 						<button type="button" onclick="profile_update();">사진등록</button>
 					</div>
 				</tr>
@@ -82,7 +70,7 @@
 					<input type="text" value="${sessionScope.updateProfile.getEmail() }" name="info_email"/>
 				</tr>
 				<tr>
-				<label for=info_birthday">생일</label>
+				<label for="info_birthday">생일</label>
 					<input type="text" value="${sessionScope.updateProfile.getBirthday() }" name="info_birthday"/>
 				</tr>
 				<tr>
@@ -90,7 +78,7 @@
 					<input type="text" value="${sessionScope.account.getSignDate() }" name="info_signDate" readonly/>
 				</tr>
 				<tr>
-					<button type="submit" onclick="update_error();">등록</button>
+					<button type="submit" onsubmit="window.close();">등록</button>
 				</tr>
 			</table>
 			</c:when>
