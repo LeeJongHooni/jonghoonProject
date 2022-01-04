@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper">
+	<!-- <update id="updateGoodCnt" parameterType="">
+		UPDATE usercomment
+		   SET good_count = #{good_count},
+		   	   hate_count = #{hate_count}
+		 WHERE comment_id = #{comment_id}
+	</update> -->
+</mapper>

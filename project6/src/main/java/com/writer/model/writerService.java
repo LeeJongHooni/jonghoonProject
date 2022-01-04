@@ -17,7 +17,7 @@ public class writerService {
 			return false;
 		}
 	}
-	public List<writerDTO> select_detail(String wnum){
+	public List<writerDTO> select_detail(int wnum){
 		writerDAO dao = new writerDAO();
 		List<writerDTO> datas = dao.select_detail(wnum);
 		
@@ -54,7 +54,7 @@ public class writerService {
 			return 0;
 		}
 	}
-	public int select_viewCnt(String wnum) {
+	public int select_viewCnt(int wnum) {
 		writerDAO dao = new writerDAO();
 		int viewCnt = dao.select_viewCnt(wnum);
 		
@@ -66,7 +66,7 @@ public class writerService {
 			return 0;
 		}
 	}
-	public boolean viewCnt_update(String wnum) {
+	public boolean viewCnt_update(int wnum) {
 		writerDAO dao = new writerDAO();
 		boolean res = dao.viewCnt_update(wnum);
 		if(res) {
@@ -89,10 +89,23 @@ public class writerService {
 		dao.close();
 		return res;
 	}
-	public boolean delete(String wnum) {
+	public boolean delete(int wnum) {
 		writerDAO dao = new writerDAO();
 		
 		boolean res = dao.delete(wnum);
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return res;
+	}
+	public boolean deleteAccount(int signId) {
+		writerDAO dao = new writerDAO();
+		
+		boolean res = dao.deleteAccount(signId);
+		System.out.println("writerService delete res = " + res);
 		if(res) {
 			dao.commit();
 		}else {
@@ -108,7 +121,7 @@ public class writerService {
 		if(datas.size() != 0) {
 			return datas;
 		}else {
-			return dao.photoComment();
+			return datas;
 		}
 	}
 }

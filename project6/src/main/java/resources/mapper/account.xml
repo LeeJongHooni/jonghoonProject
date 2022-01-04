@@ -16,7 +16,7 @@
 				#{email},
 				#{username},
 				#{birthday},
-				sysdate +9/24)
+				sysdate +9/24,null)
   </insert>
   <select id="selectPkid" parameterType="string" resultType="com.sign.model.SignDTO">
   	SELECT id
@@ -36,4 +36,7 @@
   	   	   PROFILEPHOTOPATH = #{profilephotopath}
   	 WHERE id = #{id}
   </update>
+  <delete id="deleteAccount" parameterType="int">
+  	DELETE FROM SIGN WHERE ID = #{id}
+  </delete>
 </mapper>

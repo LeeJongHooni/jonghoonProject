@@ -15,14 +15,23 @@
 		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="false"></jsp:include>
 	</header>
 	<table>
-		<tr>
-		<c:forEach var="photo" items="${photos}">
-			<c:url var="detail_link" value="/detail">
-				<c:param name="wnum" value="${photo.getwNum()}"/>
-			</c:url>
-			<td><a href="${detail_link }"><img src="${photo.getDownloadpath()}" width="360" height="500"/></a></td>
-		</c:forEach>
-		</tr>
+		<c:choose>
+		<c:when test="${fn:length(photos) != 0}">
+			<tr>
+			<c:forEach var="photo" items="${photos}">
+				<c:url var="detail_link" value="/detail">
+					<c:param name="wnum" value="${photo.getwNum()}"/>
+				</c:url>
+				<td><a href="${detail_link }"><img src="${photo.getDownloadpath()}" width="360" height="500"/></a></td>
+			</c:forEach>
+			</tr>
+		</c:when>
+		<c:otherwise>
+			<div>
+				<h1 style="opacity:0.5;">등록된 사진이 없습니다...</h1>
+			</div>		
+		</c:otherwise>
+		</c:choose>
 	</table>
 </body>
 </html>

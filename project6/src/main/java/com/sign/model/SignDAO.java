@@ -56,6 +56,14 @@ public class SignDAO {
 			return false;
 		}
 	}
+	public boolean deleteAccount(int id) {
+		int res = this.sess.delete("AccountMapper.deleteAccount",id);
+		if(res == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	public void commit() {
 		mc.commit();
 	}

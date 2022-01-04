@@ -4,11 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="WriterMapper">
   	<select id="SelectPhoto" parameterType="com.writer.model.writerDTO" resultType="com.writer.model.writerDTO">
-  	SELECT * FROM WRITER
-  		 WHERE DOWNLOADPATH
-  		  LIKE '%PNG' OR DOWNLOADPATH  LIKE '%png'
-                      or DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
-                      or DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
-                      or DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'
+	  	SELECT * FROM WRITER
+	  		 WHERE DOWNLOADPATH
+	  		  LIKE '%PNG' OR DOWNLOADPATH  LIKE '%png'
+	                      or DOWNLOADPATH  LIKE '%JPG' OR DOWNLOADPATH  LIKE '%jpg'
+	                      or DOWNLOADPATH  LIKE '%JPEG' OR DOWNLOADPATH  LIKE '%jpeg'
+	                      or DOWNLOADPATH  LIKE '%GIF' OR DOWNLOADPATH  LIKE '%gif'
   	</select>
+  	<insert id="insertWriter" parameterType="com.writer.model.writerDTO">
+	  	INSERT INTO WRITER VALUES(writer_seq.NEXTVAL,
+				#{signId},
+				#{wTitle},
+				#{wContent},
+				#{downloadpath},
+				sysdate + 9/24,
+				0)
+  	</insert>
+  	<select id="selectDetail" parameterType="int" resultType="com.writer.model.writerDTO">
+  		SELECT * FROM WRITER WHERE wnum = #{wNum}
+  	</select>
+  	<select id="selectAll" parameterType="com.writer.model.writerDTO" resultType="com.writer.model.writerDTO">
+  		SELECT * FROM WRITER ORDER BY wnum
+  	</select>
+  	<select id="selectSignId" parameterType="string" resultType="com.sign.model.SignDTO">
+  		SELECT id FROM SIGN WHERE userid = #{userid}
+  	</select>
+  	<select id="selectViewCnt" parameterType="int" resultType="com.writer.model.writerDTO">
+  		SELECT viewcnt FROM WRITER WHERE wnum = #{wNum}
+  	</select>
+  	<update id="updateViewCnt" parameterType="com.writer.model.writerDTO">
+  		UPDATE WRITER SET viewcnt = #{viewCnt} WHERE wnum = #{wNum}
+  	</update>
+  	<update id="updateWriter" parameterType="com.writer.model.writerDTO">
+  		UPDATE WRITER SET wtitle = #{wTitle},
+						wContent = #{wContent},
+					downloadpath = #{downloadpath}
+					WHERE wnum = #{wNum}
+  	</update>
+  	<delete id="deleteWriter" parameterType="int">
+  		DELETE FROM WRITER WHERE wnum = #{wNum}
+  	</delete>
+  	<delete id="deleteAccount" parameterType="int">
+  		DELETE FROM WRITER WHERE signid = #{signId}
+  	</delete>
 </mapper>

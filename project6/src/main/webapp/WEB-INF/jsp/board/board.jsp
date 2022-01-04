@@ -9,6 +9,21 @@
 <jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="false"></jsp:include>
 <meta charset="UTF-8">
 <title>게시판</title>
+<script type="text/javascript">
+			function logined(){
+				var loginfrm = document.getElementsByName("logined_form")[0];
+				if(${sessionScope.logined != null}){
+					loginfrm.submit();
+				}else{
+					alert('로그인 해주셔야 글쓰기 가능합니다.');
+				}
+			};
+			function detail_logined(){
+				if(${sessionScope.logined == null}){	
+					alert('로그인 후 사용 가능 합니다, 로그인 페이지로 이동합니다.');
+				}
+			};
+		</script>
 </head>
 <body>
 	<header>
@@ -37,21 +52,6 @@
 						<td>${content.getwDate() }</td>
 						<td>${content.getViewCnt() }</td>
 					<tr>
-		<script type="text/javascript">
-			function logined(){
-				var loginfrm = document.logined_form;
-				if(${sessionScope.logined != null}){
-					loginfrm.submit();
-				}else{
-					alert('로그인 해주셔야 글쓰기 가능합니다.');
-				}
-			};
-			function detail_logined(){
-				if(${sessionScope.logined == null}){	
-					alert('로그인 후 사용 가능 합니다, 로그인 페이지로 이동합니다.');
-				}
-			};
-		</script>
 				</c:forEach>		
 			</tbody>
 		</tr>
@@ -60,7 +60,7 @@
 				<tr>
 					<td>
 						<form action="<%= request.getContextPath() + "/writer"%>" name="logined_form">
-							<button type="button" onclick="logined()">글쓰기</button>
+							<button type="button" name="writerBtn" onclick="logined();">글쓰기</button>
 						</form>
 					<td>
 				</tr>		

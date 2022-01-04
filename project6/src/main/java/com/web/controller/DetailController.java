@@ -26,7 +26,7 @@ public class DetailController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String wnum = request.getParameter("wnum");
+		int wnum = Integer.parseInt(String.valueOf(request.getParameter("wnum")));
 		String viewCnt = request.getParameter("viewCnt");
 		int userpkid = 0;
 		List<SignDTO> userid = null;
@@ -45,7 +45,7 @@ public class DetailController extends HttpServlet {
 			userpkid = wdata.getSignId();
 		};
 		if(service.viewCnt_update(wnum)){
-			request.setAttribute("detail_num", Integer.parseInt(wnum));
+			request.setAttribute("detail_num", wnum);
 			getServletContext().setAttribute("userComment", datas);
 			getServletContext().setAttribute("userCommentId", userid);
 			String view = "/WEB-INF/jsp/board/detail.jsp";
@@ -63,7 +63,9 @@ public class DetailController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		System.out.println(good);
+		System.out.println(hate);
 
 	}
 }

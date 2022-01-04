@@ -46,5 +46,18 @@ public class CommentService {
 			return datas;
 		}
 	}
+	public boolean deleteComment(int userpkid) {
+		CommentDAO dao = new CommentDAO();
+		boolean res = dao.deleteComment(userpkid);
+		
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		System.out.println("commentService res = " + res);
+		return res;
+	}
 
 }

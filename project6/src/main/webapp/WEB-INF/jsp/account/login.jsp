@@ -11,10 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<header>
-		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="false"></jsp:include>
-	</header>
 	<script type="text/javascript">
 		function isvalid_login(f){
 			$.ajax({
@@ -35,6 +31,10 @@
 			});
 		}
 	</script>
+<body>
+	<header>
+		<jsp:include page="/WEB-INF/jsp/module/top-navigation.jsp" flush="false"></jsp:include>
+	</header>
 	<div>
 		<form action="/login" method="post">
 			<input type="text" placeholder="id..." name="userid">

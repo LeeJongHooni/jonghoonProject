@@ -31,12 +31,14 @@ public class SignService {
 	public SignDTO select_pkid(String userid){
 		SignDAO dao = new SignDAO();
 		SignDTO data = dao.select_pkid(userid);
-		if(data.getId() != 0) {
+	
+		
+		if(data != null) {
 			dao.close();
 			return data;
 		}else {
 			dao.close();
-			return data;
+			return dao.select_pkid(userid);
 		}
 	}
 	public List<SignDTO> select_userid(int pkid){
@@ -73,6 +75,18 @@ public class SignService {
 		SignDAO dao = new SignDAO();
 		boolean res = dao.updateProfile(dto);
 		System.out.println("updateProfile serv : " + res);
+		if(res) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return res;
+	}
+	public boolean deleteAccount(int id) {
+		SignDAO dao = new SignDAO();
+		boolean res = dao.deleteAccount(id);
+		
 		if(res) {
 			dao.commit();
 		}else {

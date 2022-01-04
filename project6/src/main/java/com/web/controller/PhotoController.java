@@ -25,7 +25,6 @@ public class PhotoController extends HttpServlet {
 		List<writerDTO> photos = wService.photoComment();
 		
 		request.setAttribute("photos", photos);
-		
 		String view = "/WEB-INF/jsp/board/photo.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);

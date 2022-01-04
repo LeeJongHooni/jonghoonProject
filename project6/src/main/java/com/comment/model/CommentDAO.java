@@ -73,6 +73,17 @@ public class CommentDAO {
 		}
 		return datas;
 	}
+	public boolean deleteComment(int userpkid) {
+		this.query = "DELETE FROM usercomment WHERE USERPKID = "+ userpkid;
+		
+		int res = oc.delete(this.query);
+		System.out.println("comment delete res = " + res);
+		if(res != 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	public void close() {
 		this.oc.close();
 	}

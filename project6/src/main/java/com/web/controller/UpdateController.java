@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,16 +37,23 @@ public class UpdateController extends HttpServlet {
 		String updateTitle = multi.getParameter("title");
 		String updateContent = multi.getParameter("content");
 		String updateFile = "/upload/" + multi.getFilesystemName("download");
-		String wnum = request.getParameter("wnum");
+		int wnum = Integer.parseInt(request.getParameter("wnum"));
 		
 		writerDTO dto = new writerDTO();
 		writerService service = new writerService();
 		
 		dto.setwTitle(updateTitle);
 		dto.setwContent(updateContent);
-		dto.setDownloadpath(updateFile);
+		if(!updateFile.contains("null")) {
+			dto.setDownloadpath(updateFile);
+		}else {
+			List<writerDTO> datas = service.select_detail(wnum);
+			for(writerDTO data: datas) {
+				dto.setDownloadpath(data.getDownloadpath());
+			}
+		}
 		
-		dto.setwNum(Integer.parseInt(wnum));
+		dto.setwNum(wnum);
 		
 		if(service.update(dto)) {
 			response.sendRedirect("/board");

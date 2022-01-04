@@ -7,120 +7,58 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.db.conn.MybatisConnect;
 import com.db.conn.OracleConnect;
+import com.sign.model.SignDTO;
 
 public class writerDAO {
 	private MybatisConnect mc;
-	private OracleConnect oc;
-	private String query;
 	private SqlSession sess;
 	
 	public writerDAO() {
-		this.oc = new OracleConnect();
 		this.mc = new MybatisConnect();
 		this.sess = this.mc.getSession();
 	}
 	
 	public boolean insert(writerDTO dto) {
-		this.query = "INSERT INTO WRITER VALUES(writer_seq.NEXTVAL,"
-				+ "'" + dto.getSignId() +"', "
-				+ "'" + dto.getwTitle() +"', "
-				+ "'" + dto.getwContent() +"', "
-				+ "'" + dto.getDownloadpath() + "', "
-				+ " sysdate + 9/24 , "
-				+ "0 )";
-		int res = oc.insert(query);
+		int res = this.sess.insert("WriterMapper.insertWriter",dto);
 		if(res == 1) {
 			return true;
 		}else {
 			return false;
 		}
 	}
-	public List<writerDTO> select_detail(String wnum){
-		this.query = "SELECT * FROM WRITER WHERE wnum = "+ wnum;
+	public List<writerDTO> select_detail(int wnum){
 		
-		ResultSet rs = oc.select(query);
-		List<writerDTO> datas = new ArrayList<writerDTO>();
+		List<writerDTO> datas = this.sess.selectList("WriterMapper.selectDetail",wnum);
 		
-		try {
-			while(rs.next()) {
-				writerDTO dto = new writerDTO();
-				dto.setwNum(rs.getInt("wnum"));
-				dto.setSignId(rs.getInt("signid"));
-				dto.setwTitle(rs.getString("wtitle"));
-				dto.setwContent(rs.getString("wcontent"));
-				dto.setDownloadpath(rs.getString("downloadpath"));
-				dto.setwDate(rs.getDate("wdate"));
-				dto.setViewCnt(rs.getInt("viewcnt"));
-				datas.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return datas;
 	}
 	public List<writerDTO> selectAll(){
-		this.query = "SELECT * FROM WRITER ORDER BY wnum";
 		
-		ResultSet rs = oc.select(query);
-		List<writerDTO> datas = new ArrayList<writerDTO>();
+		List<writerDTO> datas = this.sess.selectList("WriterMapper.selectAll");
 		
-		try {
-			while(rs.next()) {
-				writerDTO dto = new writerDTO();
-				dto.setwNum(rs.getInt("wnum"));
-				dto.setSignId(rs.getInt("signid"));
-				dto.setwTitle(rs.getString("wtitle"));
-				dto.setwContent(rs.getString("wcontent"));
-				dto.setDownloadpath(rs.getString("downloadpath"));
-				dto.setwDate(rs.getDate("wdate"));
-				dto.setViewCnt(rs.getInt("viewcnt"));
-				datas.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return datas;
 	}
 	
 	public int select_signId(String userId) {
-		this.query = "SELECT id FROM SIGN WHERE userid = '" + userId+"'";
 		
-		ResultSet rs = oc.select(query);
-		int signId = 0;
-		try {
-			if(rs.next()) {
-				writerDTO dto = new writerDTO();
-				dto.setSignId(rs.getInt("id"));
-				signId = dto.getSignId();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return signId;
+		
+		SignDTO signId = this.sess.selectOne("WriterMapper.selectSignId",userId);
+		
+		return signId.getId();
 	}
-	public int select_viewCnt(String wnum) {
-		this.query = "SELECT viewcnt FROM WRITER WHERE wnum = '" + wnum + "'";
+	public int select_viewCnt(int wnum) {
+	
+		int viewCnt = this.sess.selectOne("WriterMapper.selectViewCnt",wnum);
 		
-		ResultSet rs = oc.select(query);
-		int viewCnt = 0;
-		try {
-			if(rs.next()) {
-				writerDTO dto = new writerDTO();
-				dto.setViewCnt(rs.getInt("viewcnt"));
-				viewCnt = dto.getViewCnt();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return viewCnt;
 	}
-	public boolean viewCnt_update(String wnum) {
+	public boolean viewCnt_update(int wnum) {
 		writerDTO dto = new writerDTO();
-		writerService service = new writerService();
-		int cnt = service.select_viewCnt(wnum);
-		this.query = "UPDATE WRITER SET viewcnt = " +( cnt + 1 )+ "WHERE wnum = '" + wnum + "'";
 		
-		int res = oc.update(this.query);
+		dto = this.sess.selectOne("WriterMapper.selectViewCnt",wnum);
+		dto.setViewCnt(dto.getViewCnt() + 1);
+		dto.setwNum(wnum);
+		int res = this.sess.update("WriterMapper.updateViewCnt",dto);
 		if(res == 1) {
 			return true;
 		}else {
@@ -130,12 +68,7 @@ public class writerDAO {
 	}
 	public boolean update(writerDTO dto) {
 		
-		this.query = "UPDATE WRITER SET wtitle = '" +dto.getwTitle()+
-					"',wContent = '" + dto.getwContent() +
-					"', downloadpath = '"+dto.getDownloadpath() +
-					"' WHERE wnum = '" + dto.getwNum() + "'";
-		
-		int res = oc.update(query);
+		int res = this.sess.update("WriterMapper.updateWriter",dto);
 		
 		if(res == 1) {
 			return true;
@@ -143,12 +76,21 @@ public class writerDAO {
 			return false;
 		}
 	}
-	public boolean delete(String wnum) {
-		this.query = "DELETE FROM WRITER WHERE wnum = " + wnum;
+	public boolean delete(int wnum) {
 		
-		int res = oc.delete(this.query);
+		int res = this.sess.delete("WriterMapper.deleteWriter",wnum);
 		
-		if(res == 1) {
+		if(res > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public boolean deleteAccount(int signId) {
+		
+		int res = this.sess.delete("WriterMapper.deleteAccount",signId);
+		System.out.println("writerDAO delete res = " + res);
+		if(res != 0) {
 			return true;
 		}else {
 			return false;
@@ -159,12 +101,12 @@ public class writerDAO {
 		return datas;
 	}
 	public void commit() {
-		oc.commit();
+		mc.commit();
 	}
 	public void rollback() {
-		oc.rollback();
+		mc.rollback();
 	}
 	public void close() {
-		oc.close();
+		mc.close();
 	}
 }

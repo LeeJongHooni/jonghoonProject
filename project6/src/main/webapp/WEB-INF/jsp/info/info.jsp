@@ -76,6 +76,9 @@
 			</c:when>
 			</c:choose>
 		</div>
+		<div>
+			<a href="/accountdelete"><button type="button">회원탈퇴</button></a>
+		</div>
 	</form>
 </body>
 </html>

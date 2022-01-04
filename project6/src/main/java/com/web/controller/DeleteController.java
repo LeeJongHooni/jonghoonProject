@@ -21,7 +21,7 @@ public class DeleteController extends HttpServlet {
 		
 		System.out.println("delete:" + delete);
 		
-		if(service.delete(wnum)) {
+		if(service.delete(Integer.parseInt(wnum))) {
 			response.sendRedirect("/board");
 		}else {
 			request.setAttribute("delete-cancel", "게시글 삭제를 취소하셨습니다.");

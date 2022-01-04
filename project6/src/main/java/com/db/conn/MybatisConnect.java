@@ -22,7 +22,7 @@ public class MybatisConnect {
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-			this.sess = sqlSessionFactory.openSession(false);
+			this.sess = sqlSessionFactory.openSession(false); // autoCommit 같은거
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

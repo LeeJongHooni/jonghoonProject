@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <jsp:include page="/WEB-INF/jsp/head/default.jsp" flush="false"></jsp:include>
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -20,6 +21,7 @@
 			alert("게시글 삭제를 취소 하셨습니다.");
 			return false;	
 		}
+	
 	}
 </script>
 </head>
@@ -85,6 +87,9 @@
 				</c:if>				
 				</tr>
 			</c:forEach>
+			<tr>
+				<td><a href="/board"><button type="button">목록</button></td></a>
+			</tr>
 		</table>
 	</div>
 	<c:if test="${sessionScope.logined }">
@@ -112,13 +117,32 @@
 		<c:forEach var="comment" items="${applicationScope.userComment }">
 		<c:if test="${comment.getComment_id() == detail_num}">
 			<hr>
-			<ul>
-				<li><h6>${comment.getUserid() } 님의 댓글</h6></li>
-				<li><p>${comment.getUsercomment() }</p></li>
-				<li><span><fmt:formatDate value="${comment.getCommentdate() }" type="both" dateStyle="long" timeStyle="long"/></span></li>
-				<li><button type="button">좋아요! [${comment.getGood_count()}]</button></li>
-				<li><button type="button">싫어요! [${comment.getHate_count()}]</button></li>
-			</ul>
+				<ul>
+					<li><h6>${comment.getUserid() } 님의 댓글</h6></li>
+					<li><p>${comment.getUsercomment() }</p></li>
+					<li><span><fmt:formatDate value="${comment.getCommentdate() }" type="both" dateStyle="long" timeStyle="long"/></span></li>
+					<button type="button" onclick="click_cnt(this.form);">좋아요</button>
+					<li><input type="text" value="${comment.getGood_count() }" name="good"></li>
+					<label>싫어요</label>
+					<li><input type="text" value="${comment.getHate_count() }" name="hate"></li>
+					<script type="text/javascript">
+						function click_cnt(f){
+							$.ajax({
+								url: "/detail",
+								type: "post",
+								data: {
+									good: f.good.value,
+									hate: f.hate.value
+								},
+								dataType: "json",
+								success: function(){
+									document.getElementsByName("good")[0].value = 
+										${good_cnt};
+								}
+							});
+						}
+					</script>
+				</ul>
 			</c:if>
 		</c:forEach>
 	</div>

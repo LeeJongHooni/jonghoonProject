@@ -40,16 +40,16 @@ public class LoginController extends HttpServlet {
 		dto.setUserid(userid);
 		dto.setPassword(password);
 		
-		SignDTO pkId = service.select_pkid(userid);
 		if(service.login(dto)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("logined", true);
 			session.setAttribute("account", dto);
-			session.setAttribute("userPkId", pkId.getId());
+			session.setAttribute("userPkId", dto.getId());
 			session.setAttribute("loginUserid", dto.getUserid());
 			json.put("state","success");
 		}else {
 			json.put("state", "fail");
+			request.setAttribute("login_error", "로그인에 실패 했습니다.");
 		}
 		response.getWriter().print(json.toJSONString());
 		response.getWriter().flush();

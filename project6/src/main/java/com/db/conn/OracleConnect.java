@@ -14,7 +14,6 @@ public class OracleConnect {
 	{
 		String userHome = System.getProperty("user.home");
 		try {
-			System.out.println(userHome + "/oracle_connect.prop");
 			this.info.load(new FileReader(userHome + "/oracle_connect.prop"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -32,6 +31,8 @@ public class OracleConnect {
 		try {
 			ods = new OracleDataSource();
 			ods.setURL(this.info.getProperty("cloud-url"));
+			ods.setUser(this.info.getProperty("user1"));
+			ods.setPassword(this.info.getProperty("password"));
 			ods.setConnectionProperties(this.info);
 			this.conn = ods.getConnection();
 			this.conn.setAutoCommit(false);
@@ -45,6 +46,7 @@ public class OracleConnect {
 		ResultSet rs = null;
 		try {
 			rs = this.stat.executeQuery(query);
+			System.out.println("rs = " + rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

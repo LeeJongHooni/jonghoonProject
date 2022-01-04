@@ -31,7 +31,6 @@ public class CommentController extends HttpServlet {
 		String comment = request.getParameter("userComment");
 		String userPkId = request.getParameter("userPkId");
 		int wnum = Integer.parseInt(request.getParameter("wnumPara"));
-		System.out.println(wnum);
 		
 		CommentDTO dto = new CommentDTO();
 		CommentService service = new CommentService();
